@@ -16,7 +16,7 @@ public class Chat {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        NewJFrame form = new NewJFrame();
+       NewJFrame form = new NewJFrame();
        form.setVisible(true);  
         
     }

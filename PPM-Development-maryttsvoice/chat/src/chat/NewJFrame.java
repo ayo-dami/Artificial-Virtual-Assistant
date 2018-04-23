@@ -16,8 +16,7 @@ import java.util.logging.Logger;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
-
-
+  
 /**
  *
  * @author ayo
@@ -25,8 +24,9 @@ import java.text.SimpleDateFormat;
 
 
 
-public class NewJFrame extends javax.swing.JFrame {
-
+public class NewJFrame extends javax.swing.JFrame { 
+    public boolean FemaleGUI = true;
+    public TextToSpeech tts =  new TextToSpeech();
     /**
      * Creates new form NewJFrame
      */
@@ -35,20 +35,22 @@ public class NewJFrame extends javax.swing.JFrame {
     String ava = " A.V.A: ";
     String resp;
     
-    
-    
 void showDate() {
       
      
-       
+
+    
 }
     
     public NewJFrame() {
         initComponents();
-//           name = JOptionPane.showInputDialog("What is your name?"); implement login/name identifier  
-             name = " You: ";
-                chatOutput.setText("Hello you're speaking with Ava \n");
-		chatOutput.setText(ava + chatOutput.getText() );
+//          name = JOptionPane.showInputDialog("What is your name?"); implement login/name identifier  
+            name = " You: ";
+            chatOutput.setText("Hello you're speaking with Ava \n");
+            chatOutput.setText(ava + chatOutput.getText() );                
+            FemaleGUIButton.setBackground(new java.awt.Color(240, 240, 240));
+            MaleGUIButton.setBackground(new java.awt.Color(240, 240, 240));
+            jButton1.setBackground(new java.awt.Color(0, 204, 204));
     System.setProperty("mbrola.base", "C:\\Users\\ayo\\Documents\\jar\\mbr302a\\mbr302a\\mbrola.exe");
     }
    
@@ -68,6 +70,8 @@ void showDate() {
         jScrollPane2 = new javax.swing.JScrollPane();
         chatOutput = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
+        FemaleGUIButton = new javax.swing.JButton();
+        MaleGUIButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -100,6 +104,20 @@ void showDate() {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/chat/avaicon.png"))); // NOI18N
 
+        FemaleGUIButton.setText("Female");
+        FemaleGUIButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FemaleGUIButtonActionPerformed(evt);
+            }
+        });
+
+        MaleGUIButton.setText("Male");
+        MaleGUIButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MaleGUIButtonActionPerformed(evt);
+            }
+        });
+
         jMenuBar1.setEnabled(false);
 
         jMenu1.setText("File");
@@ -129,7 +147,11 @@ void showDate() {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(chatInput)
+                        .addComponent(FemaleGUIButton, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(MaleGUIButton, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(chatInput, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(11, 11, 11))
@@ -148,8 +170,11 @@ void showDate() {
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
-                    .addComponent(chatInput))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(chatInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(FemaleGUIButton)
+                        .addComponent(MaleGUIButton))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -176,18 +201,10 @@ void showDate() {
 //        int rand1 = (int) (Math.random() * length);
         
         
-        
-        TextToSpeech tts =  new TextToSpeech();
-        tts.setVoice("cmu-slt-hsmm");
-//         This bit specifically sets the voice we are using. dfki-poppy is a higher and faster female voice, 
-//         cmu-slt is a deeper and slower one and cmu-rms is a male voice. Make sure to includethe full file
-//         name i.e. cmu-rms-hsmm
-//         
 
        userText = chatInput.getText();
        chatOutput.append(name + userText + "\n");
        chatInput.setText("");
-       
        if ((userText.matches("(.*)hello(.*)")||
                (userText .matches("(.*)Hello(.*)")) ||
                (userText .matches("(.*)hey(.*)")) ||
@@ -330,13 +347,47 @@ void showDate() {
     }//GEN-LAST:event_chatInputActionPerformed
 
     private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
-        
+
     }//GEN-LAST:event_jMenu3ActionPerformed
 
+    private void FemaleGUIButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FemaleGUIButtonActionPerformed
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/chat/avaicon.png")));
+        FemaleGUI = true;
+        tts.setVoice("cmu-slt-hsmm");
+        this.getContentPane().setBackground(new java.awt.Color(240, 240, 240));
+        FemaleGUIButton.setBackground(new java.awt.Color(240, 240, 240));
+        MaleGUIButton.setBackground(new java.awt.Color(240, 240, 240));
+        jButton1.setBackground(new java.awt.Color(0, 204, 204));
+        chatOutput.setBackground(Color.white);
+        chatInput.setBackground(Color.white);
+        FemaleGUIButton.setForeground(Color.black);
+        MaleGUIButton.setForeground(Color.black);
+        jButton1.setForeground(Color.black);
+        chatOutput.setForeground(Color.black);
+        chatInput.setForeground(Color.black);   
+    }//GEN-LAST:event_FemaleGUIButtonActionPerformed
+
+    private void MaleGUIButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MaleGUIButtonActionPerformed
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/chat/avaiconmale.png")));
+        FemaleGUI = false;        
+        tts.setVoice("cmu-rms-hsmm");
+        this.getContentPane().setBackground(Color.black);
+        FemaleGUIButton.setBackground(Color.black); 
+        MaleGUIButton.setBackground(Color.black);
+        jButton1.setBackground(Color.black);
+        chatOutput.setBackground(Color.black);
+        chatInput.setBackground(Color.black);
+        FemaleGUIButton.setForeground(Color.green);
+        MaleGUIButton.setForeground(Color.green);
+        jButton1.setForeground(Color.green);
+        chatOutput.setForeground(Color.green);
+        chatInput.setForeground(Color.green);       
+    }//GEN-LAST:event_MaleGUIButtonActionPerformed
+
     /**
+     * 
      * @param args the command line arguments
-     */
-    public static void main(String args[]) {
+     */    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -364,11 +415,14 @@ void showDate() {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new NewJFrame().setVisible(true);
+
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton FemaleGUIButton;
+    public javax.swing.JButton MaleGUIButton;
     private javax.swing.JTextField chatInput;
     private javax.swing.JTextArea chatOutput;
     private javax.swing.JButton jButton1;
